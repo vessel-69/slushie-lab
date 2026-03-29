@@ -17,3 +17,14 @@ To initialize the lab on your local machine:
    ```bash
    git clone [https://github.com/vessel-69/slushie-lab.git](https://github.com/vessel-69/slushie-lab.git)
    cd "Slushie-Lab"
+
+   Initialize Environment:
+   (Bash)
+
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install flask
+
+   Boot the System:
+   (Bash)
+   python3 app.py
