@@ -14,6 +14,15 @@ A high-atmosphere, terminal-inspired slushie simulation and order management sys
 * `static/` — The CSS styling and Roulette logic.
 * `.gitignore` — Ensuring local environments stay private.
 
+## 🛠 THE VESSEL BUILD LOG
+This project was developed and deployed using a manual Linux workflow to ensure full control over the environment and security.
+
+* **Environment:** Ubuntu 24.04 LTS (Noble Numbat)
+* **Version Control:** Manual Git initialization and CLI-based staging.
+* **Security:** Authentication handled via GitHub Personal Access Tokens (Classic) to bypass deprecated password protocols.
+* **Deployment:** Configured via `vercel.json` and synced through a GitHub-to-Vercel CI/CD pipeline.
+* **Structure:** Custom Flask architecture with manual asset routing for `static/` and `templates/`.
+
 ## ✨ KEY FEATURES
 * **Interactive Slushie Wheel:** Physics-based roulette for flavor selection.
 * **Smart Receipts:** Dynamic generation of order details with custom styling.
@@ -38,3 +47,6 @@ To initialize the lab on your local machine:
    Boot the System: 
    (Bash)
    python3 app.py
+
+
+> "The plumbing matters as much as the UI." — Vessel_69
