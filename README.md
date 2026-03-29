@@ -1,7 +1,5 @@
-# Slushie-Lab
-A localized cyber-vortex simulation for atmospheric slushie generation. Built with Flask, vanilla JS, and a terminal-inspired UI.
 # SLUSHIE LAB // vessel-69
-
+A localized cyber-vortex simulation for atmospheric slushie generation. Built with Flask, vanilla JS, and a terminal-inspired UI.
 A high-atmosphere, terminal-inspired slushie simulation and order management system. 
 
 ## 🛠 TECH SPECS
@@ -9,6 +7,12 @@ A high-atmosphere, terminal-inspired slushie simulation and order management sys
 * **Frontend:** HTML5, CSS3 (Vessel Dark Theme), Vanilla JavaScript
 * **Environment:** Optimized for Ubuntu 24.04 (Noble)
 * **Architecture:** PRG Pattern (Post/Redirect/Get) for seamless order processing
+
+## 📂 PROJECT MAP
+* `app.py` — The Flask engine.
+* `templates/` — HTML structures (Home, About, Order).
+* `static/` — The CSS styling and Roulette logic.
+* `.gitignore` — Ensuring local environments stay private.
 
 ## ✨ KEY FEATURES
 * **Interactive Slushie Wheel:** Physics-based roulette for flavor selection.
