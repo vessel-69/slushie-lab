@@ -1,0 +1,26 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# --- Python Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Python Bytecode & Cache ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# --- Environment Variables (Secrets) ---
+.env
+
+# --- OS Specific (Ubuntu/Linux) ---
+.DS_Store
+.directory
+*.swp
+

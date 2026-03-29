@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slushie Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}?v=1.1"
+    />
+    <script
+      type="text/babel"
+      src="{{ url_for('static', filename='loading.js') }}"
+    ></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="react-loader"></div>
+
+    <div id="main-content" style="display: none"></div>
+
+    <script
+      type="text/babel"
+      src="{{ url_for('static', filename='loading.js') }}"
+    ></script>
+
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.getElementById("react-loader"));
+
+      function App() {
+        const handleFinished = () => {
+          document.getElementById("react-loader").style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+        };
+
+        return <LoadingScreen onFinished={handleFinished} />;
+      }
+
+      root.render(<App />);
+    </script>
+
+    <div id="bgGlow" class="bg-glow"></div>
+
+    <header>
+      <a href="/" class="brand">vessel</a>
+      <a href="/about" class="nav-link">about</a>
+    </header>
+
+    <main>
+      <div class="hero-text">
+        <h1 class="lab-title">Slushie Lab</h1>
+        <p class="lab-sub">spin the wheel &mdash; claim your flavor</p>
+      </div>
+
+      <div class="wheel-wrapper">
+        <div class="pointer-wrap">
+          <div class="pointer"></div>
+        </div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="rouletteCanvas" width="380" height="380"></canvas>
+        </div>
+      </div>
+
+      <button id="spinBtn" class="spin-btn">SPIN</button>
+    </main>
+
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+
+    <div id="popup" class="popup">
+      <button class="close-btn" onclick="closePopup()" aria-label="Close">
+        ×
+      </button>
+
+      <div class="popup-inner">
+        <p class="congrats-label">Congratulations</p>
+
+        <div class="popup-flavor-wrap">
+          <span class="popup-pre">Your flavor is</span>
+          <span id="winnerFlavor" class="popup-flavor-name">—</span>
+        </div>
+
+        <div id="orderForm">
+          <div class="divider"></div>
+          <div class="qty-row">
+            <span class="qty-label">Quantity</span>
+            <div class="qty-controls">
+              <button
+                class="qty-btn"
+                onclick="updateQuantity(-1)"
+                aria-label="Decrease"
+              >
+                −
+              </button>
+              <span id="qtyDisplay" class="qty-num">1</span>
+              <button
+                class="qty-btn"
+                onclick="updateQuantity(1)"
+                aria-label="Increase"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button class="order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='roulette.js') }}"></script>
+  </body>
+</html>
