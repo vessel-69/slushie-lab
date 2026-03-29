@@ -23,17 +23,18 @@ A high-atmosphere, terminal-inspired slushie simulation and order management sys
 ## 🚀 LOCAL DEPLOYMENT
 To initialize the lab on your local machine:
 
-1. **Clone the repository: (Bash) **
-   
-   git clone [https://github.com/vessel-69/slushie-lab.git](https://github.com/vessel-69/slushie-lab.git)
+1. **Clone the repository:** 
+   (Bash)
+   git clone [https://github.com/vessel-69/slushie-lab.git](https://github.com/vessel-69/slushie-lab.git) 
    cd "Slushie-Lab"
 
-   Initialize Environment: (Bash)
-  
+
+   Initialize Environment: 
+   (Bash)
    python3 -m venv .venv
    source .venv/bin/activate
    pip install flask
 
-   Boot the System: (Bash)
-   
+   Boot the System: 
+   (Bash)
    python3 app.py
