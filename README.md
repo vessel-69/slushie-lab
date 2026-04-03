@@ -1,10 +1,9 @@
 ## 🥤 Slushie Lab
 > A high-performance, neon-infused flavor roulette for the modern slushie connoisseur.
 
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)] https://slushie-lab.vercel.app/
-[![Engine](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)] https://www.python.org/
-[![OS](https://img.shields.io/badge/Ubuntu-Noble-E95420?style=for-the-badge&logo=ubuntu)] https://ubuntu.com/
-
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://slushie-lab.vercel.app/)
+[![Engine](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![OS](https://img.shields.io/badge/Ubuntu-Noble-E95420?style=for-the-badge&logo=ubuntu)](https://ubuntu.com/)
 ---
 
 ## ⚡ Features
