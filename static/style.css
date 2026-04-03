@@ -1625,6 +1625,9 @@ footer {
 }
 input[type="color"] {
   -webkit-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; /* For Firefox */
+  appearance: none;
   width: 36px;
   height: 36px;
   border: none;
