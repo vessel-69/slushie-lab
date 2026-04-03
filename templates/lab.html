@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flavor Lab - Slushie Lab</title>
+    <meta name="title" content="Flavor Lab - Slushie Lab" />
+    <meta
+      name="description"
+      content="Customize; Add, remove, and arrange flavors to create the perfect blend."
+    />
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- link-css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body class="lab-page">
+    <div class="scanline"></div>
+    <div id="bgGlow" class="bg-glow"></div>
+
+    <header>
+      <div class="header-left">
+        <a href="/" class="nav-link">← Home</a>
+        <a href="/about" class="nav-link">About</a>
+      </div>
+      <a href="/" class="brand">vessel-69</a>
+      <div class="header-right">
+        <span class="nav-link nav-lab">Lab ✦</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page header -->
+      <div style="animation: fadeUp 0.7s var(--ease) both">
+        <p class="page-eyebrow">✦ Custom Flavor Lab</p>
+        <h1 class="page-title">Build Your Wheel</h1>
+        <p class="page-sub">
+          Add, remove, and arrange custom flavors. Your wheel is synced to the
+          Lab — changes take effect immediately when you head back to spin.
+        </p>
+      </div>
+
+      <!-- Grid: form + list -->
+      <div
+        class="lab-grid"
+        style="animation: fadeUp 0.7s 0.1s var(--ease) both"
+      >
+        <!-- Add Flavor Form -->
+        <div class="add-flavor-form">
+          <p class="form-title">New Flavor</p>
+
+          <div class="form-field">
+            <label class="form-label" for="flavorName">Flavor Name</label>
+            <input
+              class="form-input"
+              type="text"
+              id="flavorName"
+              placeholder="e.g. Dragon Fruit"
+              maxlength="20"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Color</label>
+            <div class="color-row">
+              <input
+                type="color"
+                id="flavorColor"
+                value="#ff3b6b"
+                title="Pick a color"
+              />
+              <div
+                class="color-preview"
+                id="colorPreview"
+                style="background: #ff3b6b; box-shadow: 0 0 12px #ff3b6b88"
+              ></div>
+              <input
+                class="form-input"
+                type="text"
+                id="flavorColorHex"
+                value="#FF3B6B"
+                placeholder="#FF3B6B"
+                maxlength="7"
+                style="flex: 1"
+              />
+            </div>
+          </div>
+
+          <button class="add-btn" id="addFlavorBtn" onclick="addFlavor()">
+            Add to Wheel +
+          </button>
+
+          <div
+            id="addMsg"
+            style="
+              margin-top: 0.65rem;
+              font-size: 0.62rem;
+              letter-spacing: 0.15em;
+              color: var(--muted);
+              text-transform: uppercase;
+              min-height: 1em;
+            "
+          ></div>
+        </div>
+
+        <!-- Flavor List -->
+        <div class="flavor-list-wrap">
+          <div class="flavor-list-header">
+            <p class="flavor-list-title">Active Flavors</p>
+            <div style="display: flex; gap: 0.6rem; align-items: center">
+              <span class="flavor-count" id="flavorCount">0 flavors</span>
+              <button class="reset-btn" onclick="resetToDefaults()">
+                Reset Defaults
+              </button>
+            </div>
+          </div>
+          <div class="flavor-list" id="flavorList"></div>
+        </div>
+      </div>
+
+      <!-- Live preview -->
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.5rem 0;
+          animation: fadeUp 0.7s 0.2s var(--ease) both;
+        "
+      >
+        <p class="page-eyebrow">Wheel Preview</p>
+        <div
+          class="lab-preview-canvas-wrap"
+          style="
+            border-radius: 50%;
+            box-shadow:
+              0 0 0 2px rgba(255, 255, 255, 0.07),
+              0 0 40px var(--accent-glow);
+          "
+        >
+          <canvas
+            id="previewCanvas"
+            class="lab-preview-canvas"
+            width="240"
+            height="240"
+            style="display: block; border-radius: 50%"
+          ></canvas>
+        </div>
+        <p class="page-sub" style="text-align: center">
+          <a
+            href="/"
+            style="
+              color: var(--accent);
+              text-decoration: none;
+              letter-spacing: 0.15em;
+              font-size: 0.65rem;
+              text-transform: uppercase;
+            "
+          >
+            → Spin with this wheel (CLICK HERE)
+          </a>
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-word">vessel-69</span>
+          <p class="footer-tagline">
+            The internet's most obsessive<br />slushie flavor oracle.
+          </p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navigate</p>
+          <div class="footer-links">
+            <a href="/" class="footer-link">→ Spin Wheel</a>
+            <a href="/lab" class="footer-link">→ Flavor Lab ✦</a>
+            <a href="/about" class="footer-link">→ About</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-title">Lab Tools</p>
+          <div class="footer-links">
+            <span class="footer-link">+ Add Custom Flavor</span>
+            <span class="footer-link">↺ Reset to Defaults</span>
+            <span class="footer-link">⚛ Quantum Mixer</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy"
+          >© 2026 Vessel-69</span
+        >
+        <div class="footer-status">
+          <div class="status-dot-live"></div>
+          All systems operational
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      "use strict";
+
+      const KEY_CUSTOM = "slushielab_custom";
+
+      const DEFAULT_FLAVORS = [
+        { name: "Strawberry", color: "#FF3B6B", default: true },
+        { name: "Blueberry", color: "#4F6EF7", default: true },
+        { name: "Mango", color: "#FF9500", default: true },
+        { name: "Lime", color: "#2DE88B", default: true },
+        { name: "Grape", color: "#9B5CF6", default: true },
+        { name: "Watermelon", color: "#FF4D80", default: true },
+        { name: "Raspberry", color: "#FF006E", default: true },
+        { name: "Peach", color: "#FFB347", default: true },
+        { name: "Cherry", color: "#E0194B", default: true },
+        { name: "Blue Razz", color: "#00AAFF", default: true },
+      ];
+
+      function getCustom() {
+        try {
+          return JSON.parse(localStorage.getItem(KEY_CUSTOM) || "[]");
+        } catch {
+          return [];
+        }
+      }
+      function setCustom(arr) {
+        localStorage.setItem(KEY_CUSTOM, JSON.stringify(arr));
+      }
+      function getAllFlavors() {
+        return [...DEFAULT_FLAVORS, ...getCustom()];
+      }
+
+      // ── Selection color ───────────────────────────────────────
+      const selStyle = document.createElement("style");
+      document.head.appendChild(selStyle);
+      function updateSelectionColor(color) {
+        selStyle.textContent = `::selection{background:${color};color:#fff}::-moz-selection{background:${color};color:#fff}`;
+      }
+
+      // ── Preview Canvas ────────────────────────────────────────
+      const pCanvas = document.getElementById("previewCanvas");
+      const pCtx = pCanvas.getContext("2d");
+      const PCX = pCanvas.width / 2;
+      const PCY = pCanvas.height / 2;
+      const PR = PCX - 4;
+
+      function drawPreview() {
+        const flavors = getAllFlavors();
+        const n = flavors.length;
+        const arcSize = (2 * Math.PI) / n;
+        const startAngle = -Math.PI / 2;
+        pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+        for (let i = 0; i < n; i++) {
+          const s = startAngle + i * arcSize;
+          const e = s + arcSize;
+          pCtx.beginPath();
+          pCtx.moveTo(PCX, PCY);
+          pCtx.arc(PCX, PCY, PR, s, e);
+          pCtx.closePath();
+          pCtx.fillStyle = flavors[i].color;
+          pCtx.fill();
+          pCtx.beginPath();
+          pCtx.moveTo(PCX, PCY);
+          pCtx.arc(PCX, PCY, PR, s, e);
+          pCtx.closePath();
+          pCtx.strokeStyle = "#161918";
+          pCtx.lineWidth = 1.5;
+          pCtx.stroke();
+        }
+
+        pCtx.beginPath();
+        pCtx.arc(PCX, PCY, PR, 0, 2 * Math.PI);
+        pCtx.strokeStyle = "rgba(255,255,255,0.11)";
+        pCtx.lineWidth = 2.5;
+        pCtx.stroke();
+
+        pCtx.beginPath();
+        pCtx.arc(PCX, PCY, 14, 0, 2 * Math.PI);
+        pCtx.fillStyle = "#161918";
+        pCtx.fill();
+        pCtx.strokeStyle = "rgba(255,255,255,0.11)";
+        pCtx.lineWidth = 1.5;
+        pCtx.stroke();
+      }
+
+      // ── Render flavor list ────────────────────────────────────
+      function renderList() {
+        const all = getAllFlavors();
+        const list = document.getElementById("flavorList");
+        const count = document.getElementById("flavorCount");
+        count.textContent = `${all.length} flavor${all.length !== 1 ? "s" : ""}`;
+
+        list.innerHTML = all
+          .map(
+            (f, i) => `
+        <div class="flavor-item" id="fi-${i}">
+          <div class="flavor-item-dot" style="background:${f.color};box-shadow:0 0 8px ${f.color}80;"></div>
+          <span class="flavor-item-name">${f.name}</span>
+          ${
+            f.default
+              ? `<span class="flavor-item-tag">default</span>`
+              : `<button class="flavor-item-delete" onclick="deleteFlavor('${f.name}')" title="Remove ${f.name}">×</button>`
+          }
+        </div>`,
+          )
+          .join("");
+
+        drawPreview();
+      }
+
+      // ── Add Flavor ────────────────────────────────────────────
+      function addFlavor() {
+        const nameInput = document.getElementById("flavorName");
+        const colorInput = document.getElementById("flavorColor");
+        const name = nameInput.value.trim();
+        const color = colorInput.value;
+
+        if (!name || name.length < 2) {
+          showMsg("Enter a name (2+ chars).", "#ff6060");
+          nameInput.focus();
+          return;
+        }
+        const all = getAllFlavors();
+        if (all.some((f) => f.name.toLowerCase() === name.toLowerCase())) {
+          showMsg("That flavor already exists.", "#ff6060");
+          return;
+        }
+        if (all.length >= 20) {
+          showMsg("Max 20 flavors on the wheel.", "#ff6060");
+          return;
+        }
+
+        const custom = getCustom();
+        custom.push({ name, color, default: false });
+        setCustom(custom);
+
+        nameInput.value = "";
+        showMsg(`"${name}" added!`, color);
+        updateBgAccent(color);
+        updateSelectionColor(color);
+        renderList();
+      }
+
+      // ── Delete ────────────────────────────────────────────────
+      function deleteFlavor(name) {
+        setCustom(getCustom().filter((f) => f.name !== name));
+        renderList();
+        showMsg(`"${name}" removed.`, "var(--muted)");
+      }
+
+      // ── Reset ─────────────────────────────────────────────────
+      function resetToDefaults() {
+        if (!confirm("Remove all custom flavors and reset to defaults?"))
+          return;
+        setCustom([]);
+        renderList();
+        showMsg("Reset to defaults.", "var(--muted)");
+      }
+
+      // ── Helpers ───────────────────────────────────────────────
+      function showMsg(text, color = "var(--muted)") {
+        const el = document.getElementById("addMsg");
+        el.textContent = text;
+        el.style.color = color;
+        clearTimeout(el._t);
+        el._t = setTimeout(() => {
+          el.textContent = "";
+        }, 3000);
+      }
+
+      function updateBgAccent(color) {
+        const hex = color.replace("#", "");
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        document.documentElement.style.setProperty("--accent", color);
+        document.documentElement.style.setProperty(
+          "--accent-glow",
+          `rgba(${r},${g},${b},0.38)`,
+        );
+        document.getElementById("bgGlow").style.background =
+          `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
+      }
+
+      // ── Color picker sync ─────────────────────────────────────
+      const colorPicker = document.getElementById("flavorColor");
+      const colorHexInput = document.getElementById("flavorColorHex");
+      const colorPreview = document.getElementById("colorPreview");
+
+      colorPicker.addEventListener("input", () => {
+        const v = colorPicker.value;
+        colorHexInput.value = v.toUpperCase();
+        colorPreview.style.background = v;
+        colorPreview.style.boxShadow = `0 0 12px ${v}88`;
+      });
+
+      colorHexInput.addEventListener("input", () => {
+        const v = colorHexInput.value.trim();
+        if (/^#[0-9A-Fa-f]{6}$/.test(v)) {
+          colorPicker.value = v;
+          colorPreview.style.background = v;
+          colorPreview.style.boxShadow = `0 0 12px ${v}88`;
+        }
+      });
+
+      document.getElementById("flavorName").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addFlavor();
+      });
+
+      // ── Init ──────────────────────────────────────────────────
+      renderList();
+    </script>
+  </body>
+</html>

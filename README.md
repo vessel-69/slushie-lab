@@ -49,4 +49,4 @@ To initialize the lab on your local machine:
    python3 app.py
 
 
->>  "The plumbing matters as much as the UI." — Vessel-69
+>  "The plumbing matters as much as the UI." — Vessel-69

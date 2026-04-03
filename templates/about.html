@@ -2,208 +2,147 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Slushie Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Slushie Lab</title>
+    <meta name="title" content="About - Slushie Lab" />
+    <meta
+      name="description"
+      content="Discover the technology and vision behind Slushie Lab, the ultimate flavor oracle for slushie enthusiasts. Learn about our mission, tech stack, and the team dedicated to eliminating flavor indecision one spin at a time."
+    />  
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- link-css -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}?v=1.1"
+      href="{{ url_for('static', filename='style.css') }}"
     />
-    <script
-      type="text/babel"
-      src="{{ url_for('static', filename='loading.js') }}"
-    ></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <style>
-      .about-container {
-        max-width: 600px;
-        margin: 100px auto;
-        padding: 40px;
-      }
-      .red-text {
-        color: #f87171;
-      }
-
-      .about-main {
-        max-width: 800px;
-        margin: 120px auto;
-        padding: 0 20px;
-      }
-
-      .terminal-window {
-        background: rgba(30, 33, 30, 0.6);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 40px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-      }
-
-      .status-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 30px;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 20px;
-      }
-
-      .status-dot {
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
-        border-radius: 50%;
-        box-shadow: 0 0 10px var(--accent);
-        animation: pulse 2s infinite;
-      }
-
-      .manifest-title {
-        font-family: var(--font-display);
-        font-size: 2.5rem;
-        letter-spacing: 0.1em;
-        color: var(--text);
-      }
-
-      .log-section {
-        margin-bottom: 25px;
-      }
-
-      .log-label {
-        color: var(--accent);
-        font-weight: 600;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        display: block;
-        margin-bottom: 8px;
-      }
-
-      .log-content {
-        line-height: 1.6;
-        color: var(--text);
-        font-size: 0.95rem;
-      }
-
-      .tech-stack {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-        margin-top: 20px;
-      }
-
-      .tech-item {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        padding: 10px;
-        text-align: center;
-        font-size: 0.8rem;
-        border-radius: 6px;
-      }
-
-      @keyframes pulse {
-        0% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.4;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    </style>
   </head>
   <body>
-    <div id="react-loader"></div>
-
-    <div id="main-content" style="display: none"></div>
-
-    <script
-      type="text/babel"
-      src="{{ url_for('static', filename='loading.js') }}"
-    ></script>
-
-    <script type="text/babel">
-      const root = ReactDOM.createRoot(document.getElementById("react-loader"));
-
-      function App() {
-        const handleFinished = () => {
-          document.getElementById("react-loader").style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-        };
-
-        return <LoadingScreen onFinished={handleFinished} />;
-      }
-
-      root.render(<App />);
-    </script>
-
+    <div class="scanline"></div>
     <div id="bgGlow" class="bg-glow"></div>
 
     <header>
-      <a href="/" class="brand">vessel</a>
-      <a href="/" class="nav-link">home</a>
+      <div class="header-left">
+        <a href="/" class="nav-link">← Home</a>
+        <a href="/lab" class="nav-link nav-lab">Lab ✦</a>
+      </div>
+      <a href="/" class="brand">vessel-69</a>
+      <div class="header-right"></div>
     </header>
 
     <main class="about-main">
       <div class="terminal-window">
         <div class="status-header">
           <div class="status-dot"></div>
-          <h1 class="manifest-title">SYSTEM_MANIFEST</h1>
+          <h1 class="manifest-title">ABOUT</h1>
         </div>
 
         <div class="log-section">
-          <span class="log-label">> MISSION_OBJECTIVE</span>
+          <span class="log-label">> MISSION OBJECTIVE</span>
           <p class="log-content">
-            Project <strong style="color: #f87171;">Slushie Lab</strong> is a high-speed flavor distribution
-            interface developed for the
-            <span style="color: var(--accent)">Hack Club Slushies</span> track.
-            Our goal: total elimination of flavor indecision through randomized
-            slushie allocation.
+            Project <strong style="color: #f87171">Slushie Lab</strong> is a
+            high-speed flavor distribution interface developed for the
+            <span style="color: var(--accent)">Hack Club Slushies</span> grant
+            track. Total elimination of flavor indecision through randomized
+            slushie allocation. Every spin is final. Every flavor is fate.
           </p>
         </div>
 
         <div class="log-section">
-          <span class="log-label">> HARDWARE_ENVIRONMENT</span>
+          <span class="log-label">> HARDWARE ENVIRONMENT</span>
           <p class="log-content">
-            This instance is currently hosted on an
-            <strong>Ubuntu 24.04 LTS (Noble Numbat)</strong> node. The backend
-            architecture utilizes Python-based <strong>Flask</strong> for
-            routing and template rendering, ensuring sub-millisecond response
-            times for slushie procurement.
+            Instance hosted on <strong>Ubuntu 24.04 LTS (Noble Numbat)</strong>.
+            Backend architecture utilizes Python-based
+            <strong>Flask</strong> for routing and template rendering. Frontend
+            is pure Canvas API + vanilla JS — zero framework bloat, maximum
+            velocity.
           </p>
         </div>
 
         <div class="log-section">
-          <span class="log-label">> CORE_TECHNOLOGIES</span>
+          <span class="log-label">> CORE TECHNOLOGIES</span>
           <div class="tech-stack">
             <div class="tech-item">Flask / Jinja2</div>
             <div class="tech-item">Canvas API</div>
-            <div class="tech-item">React 18 (Loader)</div>
+            <div class="tech-item">Web Audio API</div>
             <div class="tech-item">CSS Variables</div>
+            <div class="tech-item">LocalStorage</div>
+            <div class="tech-item">Vercel Edge</div>
           </div>
         </div>
 
         <div class="log-section">
-          <span class="log-label">> OPERATOR_NOTES</span>
+          <span class="log-label">> FEATURES DEPLOYED</span>
+          <p class="log-content">
+            Quantum Mixer — blend any two flavors at the molecular level. Flavor
+            Passport — every spin, logged and timestamped. Custom Lab — build
+            your own wheel, save your own flavors. Dynamic theming — the entire
+            UI reacts to your winning flavor's hex code, including the text
+            selection color. Confetti engine, audio tick system, keyboard
+            shortcuts, live spin streaks.
+          </p>
+        </div>
+
+        <div class="log-section" style="margin-bottom: 0">
+          <span class="log-label">> OPERATOR NOTES</span>
           <p
             class="log-content"
-            style="color: var(--muted); font-style: italic"
           >
-            " This interface is a specialized deployment of the Slushie-Lab
-            protocol. While the neural-flavor mapping is currently undergoing
-            recalibration, the core kinetic engine (Canvas API) remains 100%
-            operational. Proceed with the spin."
+            This interface is a specialized deployment of the Slushie-Lab
+            protocol. The core kinetic engine is 100% operational. Flavor
+            indecision has been fully neutralized. Proceed with the spin.
           </p>
         </div>
       </div>
     </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-word">vessel-69</span>
+          <p class="footer-tagline">
+            The internet's most obsessive<br />slushie flavor oracle.
+          </p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navigate</p>
+          <div class="footer-links">
+            <a href="/" class="footer-link">→ Spin Wheel</a>
+            <a href="/lab" class="footer-link">→ Flavor Lab ✦</a>
+            <a href="/about" class="footer-link">→ About</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-title">Built With</p>
+          <div class="footer-links">
+            <span class="footer-link">Flask + Jinja2</span>
+            <span class="footer-link">Canvas API</span>
+            <span class="footer-link">Zero dependencies</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy"
+          >© 2026 Vessel-69</span
+        >
+        <div class="footer-status">
+          <div class="status-dot-live"></div>
+          All systems operational
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

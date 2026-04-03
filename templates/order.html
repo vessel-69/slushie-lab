@@ -3,157 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Confirmed</title>
+    <title>Order Confirmed - Slushie Lab</title>
+    <meta name="title" content="Order Confirmed - Slushie Lab" />
+    <meta
+      name="description"
+      content="Your slushie order has been confirmed and is on its way! Check out your receipt for details and track your delivery status."
+    />
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- link-css -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}?v=1.1"
+      href="{{ url_for('static', filename='style.css') }}"
     />
-    <script
-      type="text/babel"
-      src="{{ url_for('static', filename='loading.js') }}"
-    ></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-
     <style>
-      :root {
-          --flavor-color: {{ color }};
-          --glow: {{ color }}33;
-      }
-
       body {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          margin: 0;
-          background-color: var(--bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        gap: 0;
       }
-
-      .receipt-container {
-          position: relative;
-          width: min(400px, 90vw);
-          background: rgba(30, 33, 30, 0.8);
-          backdrop-filter: blur(20px);
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          padding: 3rem 2rem;
-          text-align: center;
-          box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 40px var(--glow);
-          animation: fadeSlideIn 0.6s var(--transition) both;
+      .trans-id {
+        margin-top: 2rem;
+        font-size: 0.57rem;
+        color: #333;
+        font-family: var(--font-m);
+        letter-spacing: 0.12em;
       }
-
-      /* The Animated Checkmark */
-      .success-icon {
-          font-size: 3.5rem;
-          color: var(--flavor-color);
-          margin-bottom: 1.5rem;
-          display: block;
-          text-shadow: 0 0 20px var(--glow);
-          animation: checkPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-
-      .receipt-title {
-          font-family: var(--font-display);
-          font-size: 2.2rem;
-          letter-spacing: 0.1em;
-          color: var(--text);
-          margin-bottom: 0.5rem;
-          text-transform: uppercase;
-      }
-
-      .receipt-flavor {
-          font-family: var(--font-display);
-          font-size: 3rem;
-          color: var(--flavor-color);
-          margin: 1rem 0;
-          line-height: 1;
-          text-shadow: 0 0 15px var(--glow);
-      }
-
-      .receipt-details {
-          font-family: var(--font-mono);
-          font-size: 0.85rem;
-          color: var(--muted);
-          border-top: 1px dashed var(--border);
-          border-bottom: 1px dashed var(--border);
-          padding: 1.5rem 0;
-          margin: 2rem 0;
-      }
-
-      .price-total {
-          font-size: 1.5rem;
-          color: var(--text);
-          margin-top: 0.5rem;
-      }
-
-      /* Button Group */
-      .action-group {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-      }
-
-      .btn-primary {
-          background: var(--flavor-color);
-          color: white;
-          padding: 1rem;
-          text-decoration: none;
-          font-family: var(--font-display);
-          font-size: 1.2rem;
-          letter-spacing: 0.15em;
-          border-radius: 8px;
-          transition: transform 0.2s, box-shadow 0.2s;
-          box-shadow: 0 4px 15px var(--glow);
-      }
-
-      .btn-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px var(--glow);
-      }
-
-      .btn-secondary {
-          color: var(--muted);
-          text-decoration: none;
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          padding: 0.5rem;
-      }
-
-      .btn-secondary:hover { color: var(--text); }
     </style>
   </head>
   <body>
-    <div
-      class="bg-glow"
-      style="
-        background: radial-gradient(
-          circle at 50% 50%,
-          var(--glow) 0%,
-          transparent 70%
-        );
-      "
-    ></div>
+    <div class="bg-glow" id="bgGlow"></div>
 
     <div class="receipt-container">
-      <span class="success-icon">✓</span>
+      <span class="success-icon" id="checkIcon">✓</span>
       <h1 class="receipt-title">Order Confirmed</h1>
 
-      <p class="log-label" style="font-size: 0.65rem">Item Dispensed</p>
-      <div class="receipt-flavor">{{ qty }}x {{ flavor }}</div>
+      <p
+        class="log-label"
+        style="
+          font-size: 0.62rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--muted);
+          margin-bottom: 0.25rem;
+        "
+      >
+        Item Dispensed
+      </p>
+      <div class="receipt-flavor" id="receiptFlavor">—</div>
 
       <div class="receipt-details">
-        <div style="display: flex; justify-content: space-between">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+          "
+        >
           <span>Unit Price</span>
           <span>$5.00</span>
         </div>
@@ -162,25 +84,57 @@
           class="price-total"
         >
           <span>TOTAL</span>
-          <span>${{ (qty | int * 5.0) | round(2) }}</span>
+          <span id="receiptTotal">$5.00</span>
         </div>
       </div>
 
       <div class="action-group">
-        <a href="/" class="btn-primary">ORDER AGAIN</a>
+        <a href="/" class="btn-primary" id="orderAgainBtn">ORDER AGAIN</a>
         <a href="/about" class="btn-secondary">ABOUT</a>
       </div>
 
-      <p
-        style="
-          margin-top: 2rem;
-          font-size: 0.6rem;
-          color: #444;
-          font-family: var(--font-mono);
-        "
-      >
-        TRANS_ID: {{ range(10000, 99999) | random }} | STATUS: DELIVERED
-      </p>
+      <p class="trans-id" id="transId">TRANS_ID: — | STATUS: DELIVERED</p>
     </div>
+
+    <script>
+      // Read params from URL (set by roulette.js redirect)
+      const params = new URLSearchParams(window.location.search);
+      const flavor = params.get("flavor") || "Mystery";
+      const color = params.get("color") || "#ff2d2d";
+      const qty = Math.max(1, parseInt(params.get("qty") || "1"));
+      const total = (qty * 5).toFixed(2);
+      const transId = Math.floor(Math.random() * 90000) + 10000;
+
+      // Hydrate UI
+      document.getElementById("receiptFlavor").textContent =
+        qty + "x " + flavor;
+      document.getElementById("receiptFlavor").style.color = color;
+      document.getElementById("receiptTotal").textContent = "$" + total;
+      document.getElementById("transId").textContent =
+        "TRANS_ID: " + transId + " | STATUS: DELIVERED";
+
+      // Apply dynamic color
+      const hex = color.replace("#", "");
+      const r = parseInt(hex.slice(0, 2), 16);
+      const g = parseInt(hex.slice(2, 4), 16);
+      const b = parseInt(hex.slice(4, 6), 16);
+
+      document.documentElement.style.setProperty("--accent", color);
+      document.documentElement.style.setProperty(
+        "--accent-glow",
+        `rgba(${r},${g},${b},0.38)`,
+      );
+
+      document.getElementById("bgGlow").style.background =
+        `radial-gradient(circle at 50% 50%, rgba(${r},${g},${b},0.1) 0%, transparent 70%)`;
+
+      document.querySelector(".receipt-container").style.boxShadow =
+        `0 25px 60px rgba(0,0,0,0.5), 0 0 50px rgba(${r},${g},${b},0.2)`;
+
+      // Selection color
+      const style = document.createElement("style");
+      style.textContent = `::selection{background:${color};color:#fff}::-moz-selection{background:${color};color:#fff}`;
+      document.head.appendChild(style);
+    </script>
   </body>
 </html>

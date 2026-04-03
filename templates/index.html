@@ -4,89 +4,296 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slushie Lab</title>
+    <meta name="title" content="Slushie Lab" />
+    <meta
+      name="description"
+      content="Spin the wheel. Claim your flavor. The most addictive slushie oracle on the internet."
+    />
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- link-css -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}?v=1.1"
+      href="{{ url_for('static', filename='style.css') }}"
     />
-    <script
-      type="text/babel"
-      src="{{ url_for('static', filename='loading.js') }}"
-    ></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <div id="react-loader"></div>
+    <!-- Grain + scanlines -->
+    <div class="scanline"></div>
 
-    <div id="main-content" style="display: none"></div>
+    <!-- Custom cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-    <script
-      type="text/babel"
-      src="{{ url_for('static', filename='loading.js') }}"
-    ></script>
+    <!-- Confetti -->
+    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
-    <script type="text/babel">
-      const root = ReactDOM.createRoot(document.getElementById("react-loader"));
-
-      function App() {
-        const handleFinished = () => {
-          document.getElementById("react-loader").style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-        };
-
-        return <LoadingScreen onFinished={handleFinished} />;
-      }
-
-      root.render(<App />);
-    </script>
-
+    <!-- Ambient BG -->
     <div id="bgGlow" class="bg-glow"></div>
 
+    <!-- ══ HEADER ══ -->
     <header>
-      <a href="/" class="brand">vessel</a>
-      <a href="/about" class="nav-link">about</a>
+      <div class="header-left">
+        <a href="/about" class="nav-link">About</a>
+        <a href="/lab" class="nav-link nav-lab">Lab ✦</a>
+      </div>
+
+      <a href="/" class="brand">vessel-69</a>
+
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          id="historyToggle"
+          title="Flavor Passport & Orders"
+          aria-label="Open history"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span id="historyBadge" class="icon-badge hidden">0</span>
+        </button>
+
+        <button
+          class="icon-btn"
+          id="quantumToggle"
+          title="Quantum Mixer"
+          aria-label="Open quantum mixer"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 3H5a2 2 0 0 0-2 2v4" />
+            <path d="M9 3h6" />
+            <path d="M15 3h4a2 2 0 0 1 2 2v4" />
+            <path d="M2 9v6" />
+            <path d="M22 9v6" />
+            <path d="M2 15v2a2 2 0 0 0 2 2h4" />
+            <path d="M22 15v2a2 2 0 0 1-2 2h-4" />
+            <path d="M9 21h6" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </div>
     </header>
 
+    <!-- ══ MAIN ══ -->
     <main>
       <div class="hero-text">
         <h1 class="lab-title">Slushie Lab</h1>
         <p class="lab-sub">spin the wheel &mdash; claim your flavor</p>
       </div>
 
+      <!-- Flavor of the Day -->
+      <div class="fotd-banner" id="fotdBanner" title="Flavor of the Day">
+        <div class="fotd-dot" id="fotdDot"></div>
+        <span class="fotd-label">Today's Pick</span>
+        <span class="fotd-name" id="fotdName">—</span>
+      </div>
+
+      <!-- Live stats -->
+      <div class="stat-strip">
+        <div class="stat-item">
+          <span class="stat-val" id="statSpins">0</span>
+          <span class="stat-label">Spins</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statOrders">0</span>
+          <span class="stat-label">Orders</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statFlavors">10</span>
+          <span class="stat-label">Flavors</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" id="statStreak">0</span>
+          <span class="stat-label">Streak</span>
+        </div>
+      </div>
+
+      <!-- Wheel -->
       <div class="wheel-wrapper">
         <div class="pointer-wrap">
-          <div class="pointer"></div>
+          <div class="pointer" id="pointer"></div>
         </div>
         <div class="canvas-wrap" id="canvasWrap">
           <canvas id="rouletteCanvas" width="380" height="380"></canvas>
         </div>
       </div>
 
-      <button id="spinBtn" class="spin-btn">SPIN</button>
+      <div class="spin-row">
+        <button id="spinBtn" class="spin-btn">SPIN</button>
+        <span id="spinCounter" class="spin-counter hidden">×0</span>
+      </div>
+
+      <div class="kbd-hint" id="kbdHint">press <kbd>Space</kbd> to spin</div>
     </main>
 
-    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <!-- ══ HISTORY DRAWER ══ -->
+    <div
+      id="drawerOverlay"
+      class="drawer-overlay"
+      onclick="closeDrawer()"
+    ></div>
+    <aside id="historyDrawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="drawer-tabs">
+          <button
+            class="drawer-tab active"
+            data-tab="passport"
+            onclick="switchTab('passport')"
+          >
+            Flavor Passport
+          </button>
+          <button
+            class="drawer-tab"
+            data-tab="orders"
+            onclick="switchTab('orders')"
+          >
+            Orders <span id="ordersBadge" class="tab-badge hidden">0</span>
+          </button>
+        </div>
+        <button
+          class="close-btn"
+          onclick="closeDrawer()"
+          aria-label="Close drawer"
+        >
+          ×
+        </button>
+      </div>
 
-    <div id="popup" class="popup">
-      <button class="close-btn" onclick="closePopup()" aria-label="Close">
+      <div id="tab-passport" class="tab-content active">
+        <div id="passportList" class="history-list">
+          <div class="empty-state">
+            <span class="empty-icon">🌀</span>
+            <p>No spins yet.<br />Give the wheel a go.</p>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button class="clear-btn" onclick="clearPassport()">
+            Clear History
+          </button>
+        </div>
+      </div>
+
+      <div id="tab-orders" class="tab-content">
+        <div id="orderList" class="history-list">
+          <div class="empty-state">
+            <span class="empty-icon">🧃</span>
+            <p>No orders yet.<br />Spin and place one.</p>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button class="clear-btn" onclick="clearOrders()">
+            Clear Orders
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══ QUANTUM MIXER MODAL ══ -->
+    <div id="quantumOverlay" class="overlay" onclick="closeQuantum()"></div>
+    <div id="quantumModal" class="modal" aria-hidden="true">
+      <button
+        class="close-btn modal-close"
+        onclick="closeQuantum()"
+        aria-label="Close mixer"
+      >
         ×
       </button>
+      <div class="modal-inner">
+        <p class="modal-eyebrow">⚛ Quantum Mixer</p>
+        <h2 class="modal-title">Blend Two Flavors</h2>
+        <p class="modal-sub">
+          Entangle flavors at the quantum level to synthesize something entirely
+          new.
+        </p>
+        <div class="mixer-selectors">
+          <div class="mixer-sel-wrap">
+            <label class="sel-label" for="mixerA">Flavor A</label>
+            <select id="mixerA" class="mixer-select"></select>
+            <div class="sel-dot" id="dotA"></div>
+          </div>
+          <div class="mixer-plus">+</div>
+          <div class="mixer-sel-wrap">
+            <label class="sel-label" for="mixerB">Flavor B</label>
+            <select id="mixerB" class="mixer-select"></select>
+            <div class="sel-dot" id="dotB"></div>
+          </div>
+        </div>
+        <button class="mix-btn" id="mixBtn" onclick="runQuantumMix()">
+          <span id="mixBtnText">MIX</span>
+        </button>
+        <div id="mixLoading" class="mix-loading hidden">
+          <div class="mix-particles">
+            <span class="mix-orb" id="orbA"></span>
+            <span class="mix-bolt">⚡</span>
+            <span class="mix-orb" id="orbB"></span>
+          </div>
+          <p class="mix-loading-text">Entangling flavor particles...</p>
+        </div>
+        <div id="mixResult" class="mix-result hidden">
+          <div class="mix-swatch-wrap">
+            <div class="mix-swatch" id="mixSwatch"></div>
+            <div class="mix-swatch-glow" id="mixSwatchGlow"></div>
+          </div>
+          <div class="mix-info">
+            <p class="mix-label">Quantum Blend</p>
+            <p class="mix-name" id="mixName">—</p>
+            <p class="mix-hex" id="mixHex">#000000</p>
+          </div>
+          <button
+            class="mix-save-btn"
+            id="mixSaveBtn"
+            onclick="saveBlendToLab()"
+          >
+            Save to Lab ✦
+          </button>
+        </div>
+      </div>
+    </div>
 
+    <!-- ══ ORDER POPUP ══ -->
+    <div id="overlay" class="overlay" onclick="closePopup()"></div>
+    <div id="popup" class="popup" aria-hidden="true">
+      <button class="close-btn" onclick="closePopup()" aria-label="Close popup">
+        ×
+      </button>
       <div class="popup-inner">
         <p class="congrats-label">Congratulations</p>
-
         <div class="popup-flavor-wrap">
           <span class="popup-pre">Your flavor is</span>
           <span id="winnerFlavor" class="popup-flavor-name">—</span>
         </div>
-
         <div id="orderForm">
           <div class="divider"></div>
           <div class="qty-row">
@@ -109,10 +316,51 @@
               </button>
             </div>
           </div>
-          <button class="order-btn" onclick="placeOrder()">Place Order</button>
+          <button class="order-btn" id="orderBtn" onclick="placeOrder()">
+            Place Order
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-word">vessel-69</span>
+          <p class="footer-tagline">
+            The internet's most obsessive<br />slushie flavor oracle.<br />Spin.
+            Blend. Order. Repeat.
+          </p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navigate</p>
+          <div class="footer-links">
+            <a href="/" class="footer-link">→ Spin Wheel</a>
+            <a href="/lab" class="footer-link">→ Flavor Lab ✦</a>
+            <a href="/about" class="footer-link">→ About</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-title">Features</p>
+          <div class="footer-links">
+            <span class="footer-link">⚛ Quantum Mixer</span>
+            <span class="footer-link">📜 Flavor Passport</span>
+            <span class="footer-link">🧪 Custom Lab</span>
+            <span class="footer-link">🎊 Confetti Engine</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy"
+          >© 2026 Vessel-69</span
+        >
+        <div class="footer-status">
+          <div class="status-dot-live"></div>
+          All systems operational
+        </div>
+      </div>
+    </footer>
 
     <script src="{{ url_for('static', filename='roulette.js') }}"></script>
   </body>
