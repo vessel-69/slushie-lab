@@ -22,4 +22,5 @@ def order():
     return render_template('order.html', flavor=flavor, color=color, qty=qty)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
+    
