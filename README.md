@@ -1,4 +1,4 @@
-## 🥤 Slushie Lab // VESSEL_OS
+## 🥤 Slushie Lab || vessel-69
 > A high-performance, neon-infused flavor roulette for the modern slushie connoisseur.
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://slushie-lab.vercel.app/)
@@ -23,7 +23,7 @@ Welcome to the lab. Here’s what’s under the hood of **VESSEL-69**:
 ```text
 slushie-lab/
 ├── app.py              # The Flask Brain
-├── favicon/            # Asset pipeline (.gitkeep ready)
+├── favicon/            # Web Favicon
 ├── static/             # The UI Hardware (CSS/JS)
 │   ├── style.css       # Neon aesthetics
 │   └── roulette.js     # Spin logic
@@ -78,4 +78,4 @@ Any push to the `main` branch automatically triggers a new build and update to t
 
 ---
 
-**Developed by [ Vessel-69]** 
+**Developed by Vessel-69** 
