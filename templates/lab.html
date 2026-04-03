@@ -423,5 +423,36 @@
       // ── Init ──────────────────────────────────────────────────
       renderList();
     </script>
+
+<script>
+      // ── Persistent color logic ──────────────────────────────
+      (function() {
+        const saved = localStorage.getItem("slushielab_active_color") || "#ff2d2d";
+        const hex = saved.replace("#", "");
+        const r = parseInt(hex.slice(0, 2), 16) || 255;
+        const g = parseInt(hex.slice(2, 4), 16) || 45;
+        const b = parseInt(hex.slice(4, 6), 16) || 45;
+
+        const root = document.documentElement;
+        root.style.setProperty("--accent", saved);
+        root.style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.38)`);
+
+        const bgGlow = document.getElementById("bgGlow");
+        if (bgGlow) {
+          bgGlow.style.background = `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
+        }
+
+        // Apply to brand and nav-lab to keep the look consistent
+        document.querySelectorAll(".brand, .nav-lab").forEach(el => {
+          el.style.color = saved;
+        });
+
+        // Inject dynamic selection color
+        const s = document.createElement("style");
+        s.textContent = `::selection{background:${saved};color:#fff}::-moz-selection{background:${saved};color:#fff}`;
+        document.head.appendChild(s);
+      })();
+    </script>
+
   </body>
 </html>

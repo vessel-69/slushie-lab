@@ -23,6 +23,20 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+
+    <!-- brand-font style + tracked-out glow -->
+    <style>
+      .brand {
+        font-family: var(--font-d);
+        text-transform: lowercase;
+        letter-spacing: 0.14em;
+      }
+      .brand-word {
+        font-family: var(--font-d);
+        text-transform: lowercase;
+        letter-spacing: 0.1em;
+      }
+    </style>
   </head>
   <body>
     <!-- Grain + scanlines -->
@@ -271,6 +285,23 @@
             onclick="saveBlendToLab()"
           >
             Save to Lab ✦
+          </button>
+        </div>
+
+        <!-- Order blended flavor — shown after mix result -->
+        <div id="mixOrderSection" class="mix-order-section hidden">
+          <div class="divider" style="margin: 1rem 0 0.85rem"></div>
+          <p class="mix-order-label">Order this blend</p>
+          <div class="qty-row" style="margin-bottom: 0.85rem">
+            <span class="qty-label">Quantity</span>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="updateMixQty(-1)">−</button>
+              <span id="mixQtyDisplay" class="qty-num">1</span>
+              <button class="qty-btn" onclick="updateMixQty(1)">+</button>
+            </div>
+          </div>
+          <button class="order-btn" id="mixOrderBtn" onclick="placeMixOrder()">
+            Place Order
           </button>
         </div>
       </div>
