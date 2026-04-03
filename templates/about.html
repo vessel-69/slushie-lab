@@ -8,13 +8,7 @@
     <meta
       name="description"
       content="Discover the technology and vision behind Slushie Lab, the ultimate flavor oracle for slushie enthusiasts. Learn about our mission, tech stack, and the team dedicated to eliminating flavor indecision one spin at a time."
-    />  
-
-    <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,6 +23,14 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <style>
+      .brand,
+      .brand-word {
+        font-family: var(--font-d);
+        text-transform: lowercase;
+        letter-spacing: 0.14em;
+      }
+    </style>
   </head>
   <body>
     <div class="scanline"></div>
@@ -98,9 +100,7 @@
 
         <div class="log-section" style="margin-bottom: 0">
           <span class="log-label">> OPERATOR NOTES</span>
-          <p
-            class="log-content"
-          >
+          <p class="log-content">
             This interface is a specialized deployment of the Slushie-Lab
             protocol. The core kinetic engine is 100% operational. Flavor
             indecision has been fully neutralized. Proceed with the spin.
@@ -135,14 +135,63 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span class="footer-copy"
-          >© 2026 Vessel-69</span
-        >
+        <span class="footer-copy">© 2026 Vessel-69</span>
         <div class="footer-status">
           <div class="status-dot-live"></div>
           All systems operational
         </div>
       </div>
     </footer>
+
+    <script>
+      // ── Restore persistent flavor color on about page ─────────
+      (function () {
+        const KEY_ACTIVE_COLOR = "slushielab_active_color";
+        const saved = localStorage.getItem(KEY_ACTIVE_COLOR) || "#ff2d2d";
+        const hex = saved.replace("#", "");
+        const r = parseInt(hex.slice(0, 2), 16) || 255;
+        const g = parseInt(hex.slice(2, 4), 16) || 45;
+        const b = parseInt(hex.slice(4, 6), 16) || 45;
+
+        const root = document.documentElement;
+        root.style.setProperty("--accent", saved);
+        root.style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.38)`);
+
+        // BG glow
+        const bgGlow = document.getElementById("bgGlow");
+        if (bgGlow)
+          bgGlow.style.background = `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
+
+        // Brand color
+        document.querySelectorAll(".brand, .brand-word").forEach((el) => {
+          el.style.color = saved;
+          el.style.textShadow = `0 0 24px rgba(${r},${g},${b},0.55)`;
+        });
+
+        // Status dot
+        const sd = document.querySelector(".status-dot");
+        if (sd) {
+          sd.style.background = saved;
+          sd.style.boxShadow = `0 0 10px ${saved}`;
+        }
+
+        // nav-lab
+        document
+          .querySelectorAll(".nav-lab")
+          .forEach((el) => (el.style.color = saved));
+
+        // ::selection
+        const s = document.createElement("style");
+        s.textContent = `::selection{background:${saved};color:#fff}::-moz-selection{background:${saved};color:#fff}`;
+        document.head.appendChild(s);
+
+        // Footer brand-word
+        const bw = document.querySelector(".footer-brand .brand-word");
+        if (bw) {
+          bw.style.color = saved;
+          bw.style.textShadow = `0 0 28px rgba(${r},${g},${b},0.5)`;
+        }
+      })();
+    </script>
   </body>
 </html>

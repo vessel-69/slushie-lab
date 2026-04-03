@@ -178,7 +178,7 @@ header::after {
 
 .nav-link {
   font-family: var(--font-m);
-  font-size: 0.80rem;
+  font-size: 0.8rem;
   font-weight: 550;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -321,7 +321,6 @@ main {
     rgba(255, 255, 255, 0.6) 100%
   );
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
@@ -2025,6 +2024,77 @@ input[type="color"]::-webkit-color-swatch {
 
 /* ---------- Scrollbar global ---------- */
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted-2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ── vessel-69 brand: Bebas Neue, lowercase, tracked ─────── */
+.brand,
+.brand-word {
+  font-family: var(--font-d);
+  text-transform: lowercase;
+  letter-spacing: 0.14em;
+}
+
+/* ── Icon button color-burn base (color overridden by JS) ─── */
+.icon-btn {
+  transition:
+    color 0.25s,
+    border-color 0.3s,
+    background 0.25s,
+    box-shadow 0.4s,
+    transform 0.2s var(--spring);
+}
+
+/* ── Mixer order section ──────────────────────────────────── */
+.mix-order-section {
+  border: 1px solid var(--border-2);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem 0.85rem;
+  margin-top: 0.25rem;
+  background: var(--surface);
+  animation: fadeUp 0.35s var(--ease) both;
+  transition: border-color 0.5s;
+}
+.mix-order-section.hidden {
+  display: none;
+}
+
+.mix-order-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ── FOTD banner clickable state ─────────────────────────── */
+.fotd-banner {
+  transition:
+    border-color 0.5s,
+    box-shadow 0.5s,
+    transform 0.2s var(--spring);
+}
+.fotd-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px var(--accent-glow);
+}
+.fotd-banner:active {
+  transform: scale(0.97);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
