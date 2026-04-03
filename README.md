@@ -34,7 +34,7 @@ slushie-lab/
 ---
 
 ## 🕹️ How to Use
-1.  **Enter the Lab:** Head to the > https://slushie-lab.vercel.app/
+1.  **Enter the Lab:** Head to the >> https://slushie-lab.vercel.app/
 2.  **Adjust the Specs:** Choose your quantity using the inputs.
 3.  **Spin the Wheel:** Click the center of the roulette to begin the flavor extraction.
 4.  **Claim your Order:** Once the "Slushie" finishes processing, copy your result and enjoy your virtual slushie!
@@ -43,7 +43,7 @@ slushie-lab/
 
 ## 🛠️ Local Setup (For Developers)
 
-If you want to run the lab on your own machine (tested on **Ubuntu 24.04**), follow these steps:
+If you want to run the lab on your own machine (tested on **Ubuntu 24.04.4 LTS**), follow these steps:
 
 ### 1. Clone the Lab
 ```bash
@@ -63,7 +63,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Launch VESSEL_OS
+### 3. Launch Slushie Lab
 ```bash
 python3 app.py
 ```
@@ -79,4 +79,3 @@ Any push to the `main` branch automatically triggers a new build and update to t
 ---
 
 **Developed by [ Vessel-69]** 
-```
