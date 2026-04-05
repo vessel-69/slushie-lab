@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- link-css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
     <ttle>Slushie Lab</title>
     <meta name="title" content="Slushie Lab" />
     <meta
@@ -10,7 +14,7 @@
       content="Spin the wheel. Claim your flavor. The most addictive slushie oracle on the internet."
     />
 
-    <link rel="icon" href="data:,">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,12 +22,6 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
-    />
-
-    <!-- link-css -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
     />
 
     <!-- brand-font style + tracked-out glow -->
