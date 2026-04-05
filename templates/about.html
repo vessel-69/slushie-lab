@@ -10,8 +10,6 @@
       content="Discover the technology and vision behind Slushie Lab, the ultimate flavor oracle for slushie enthusiasts. Learn about our mission, tech stack, and the team dedicated to eliminating flavor indecision one spin at a time."
     />
 
-<link rel="icon" href="data:,">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -149,7 +147,8 @@
       // ── Restore persistent flavor color on about page ─────────
       (function () {
         const KEY_ACTIVE_COLOR = "slushielab_active_color";
-        const saved = localStorage.getItem(KEY_ACTIVE_COLOR) || "#ff2d2d";
+        // sessionStorage: clears on tab close, survives same-tab navigation
+        const saved = sessionStorage.getItem(KEY_ACTIVE_COLOR) || "#ff2d2d";
         const hex = saved.replace("#", "");
         const r = parseInt(hex.slice(0, 2), 16) || 255;
         const g = parseInt(hex.slice(2, 4), 16) || 45;

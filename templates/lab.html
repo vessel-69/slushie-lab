@@ -3,14 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flavor Lab - Slushie Lab</title>
-    <meta name="title" content="Flavor Lab - Slushie Lab" />
+    <title>Flavor Lab — Slushie Lab</title>
+    <meta name="title" content="Flavor Lab — Slushie Lab" />
     <meta
       name="description"
-      content="Customize; Add, remove, and arrange flavors to create the perfect blend."
+      content="Customize your slushie destiny in the Flavor Lab! Add, remove, and arrange your own flavors to create a personalized wheel of delicious possibilities. Your custom wheel syncs instantly with the main spin page — mix up your options and let the flavor oracle guide your next slushie adventure."
     />
-
-    <link rel="icon" href="data:,">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,8 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
-
-    <!-- link-css -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -35,7 +31,7 @@
         <a href="/" class="nav-link">← Home</a>
         <a href="/about" class="nav-link">About</a>
       </div>
-      <a href="/" class="brand">vessel-69</a>
+      <a href="/" class="brand">vessel</a>
       <div class="header-right">
         <span class="nav-link nav-lab">Lab ✦</span>
       </div>
@@ -171,7 +167,7 @@
               text-transform: uppercase;
             "
           >
-            → Spin with this wheel (CLICK HERE)
+            → Spin with this wheel
           </a>
         </p>
       </div>
@@ -181,7 +177,7 @@
     <footer>
       <div class="footer-inner">
         <div class="footer-brand">
-          <span class="brand-word">vessel-69</span>
+          <span class="brand-word">vessel</span>
           <p class="footer-tagline">
             The internet's most obsessive<br />slushie flavor oracle.
           </p>
@@ -204,7 +200,9 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span class="footer-copy">© 2026 Vessel-69</span>
+        <span class="footer-copy"
+          >© 2025 Vessel — Built for Hack Club Slushies</span
+        >
         <div class="footer-status">
           <div class="status-dot-live"></div>
           All systems operational
@@ -395,6 +393,16 @@
         );
         document.getElementById("bgGlow").style.background =
           `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
+        // Persist in sessionStorage (clears on tab close, survives same-tab nav)
+        sessionStorage.setItem("slushielab_active_color", color);
+        // Brand + nav-lab sync
+        document.querySelectorAll(".brand, .brand-word").forEach((el) => {
+          el.style.color = color;
+          el.style.textShadow = `0 0 24px rgba(${r},${g},${b},0.55)`;
+        });
+        document
+          .querySelectorAll(".nav-lab")
+          .forEach((el) => (el.style.color = color));
       }
 
       // ── Color picker sync ─────────────────────────────────────
@@ -423,38 +431,14 @@
       });
 
       // ── Init ──────────────────────────────────────────────────
+      // Restore active flavor color from sessionStorage (clears on tab close)
+      (function restoreColor() {
+        const saved =
+          sessionStorage.getItem("slushielab_active_color") || "#ff2d2d";
+        updateBgAccent(saved);
+        updateSelectionColor(saved);
+      })();
       renderList();
     </script>
-
-<script>
-      // ── Persistent color logic ──────────────────────────────
-      (function() {
-        const saved = localStorage.getItem("slushielab_active_color") || "#ff2d2d";
-        const hex = saved.replace("#", "");
-        const r = parseInt(hex.slice(0, 2), 16) || 255;
-        const g = parseInt(hex.slice(2, 4), 16) || 45;
-        const b = parseInt(hex.slice(4, 6), 16) || 45;
-
-        const root = document.documentElement;
-        root.style.setProperty("--accent", saved);
-        root.style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.38)`);
-
-        const bgGlow = document.getElementById("bgGlow");
-        if (bgGlow) {
-          bgGlow.style.background = `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
-        }
-
-        // Apply to brand and nav-lab to keep the look consistent
-        document.querySelectorAll(".brand, .nav-lab").forEach(el => {
-          el.style.color = saved;
-        });
-
-        // Inject dynamic selection color
-        const s = document.createElement("style");
-        s.textContent = `::selection{background:${saved};color:#fff}::-moz-selection{background:${saved};color:#fff}`;
-        document.head.appendChild(s);
-      })();
-    </script>
-
   </body>
 </html>

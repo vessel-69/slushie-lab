@@ -10,8 +10,6 @@
       content="Your slushie order has been confirmed and is on its way! Check out your receipt for details and track your delivery status."
     />
 
-    <link rel="icon" href="data:,">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,8 +39,7 @@
         font-family: var(--font-m);
         letter-spacing: 0.12em;
       }
-      .brand,
-      .brand-word {
+      .brand, .brand-word {
         font-family: var(--font-d);
         text-transform: lowercase;
         letter-spacing: 0.14em;
@@ -102,22 +99,17 @@
     <script>
       // Read params from URL (set by roulette.js redirect)
       const params = new URLSearchParams(window.location.search);
-      const flavor = params.get("flavor") || "Mystery";
-      const color =
-        params.get("color") ||
-        localStorage.getItem("slushielab_active_color") ||
-        "#ff2d2d";
-      const qty = Math.max(1, parseInt(params.get("qty") || "1"));
-      const total = (qty * 5).toFixed(2);
+      const flavor  = params.get("flavor") || "Mystery";
+      const color   = params.get("color")  || sessionStorage.getItem("slushielab_active_color") || "#ff2d2d";
+      const qty     = Math.max(1, parseInt(params.get("qty") || "1"));
+      const total   = (qty * 5).toFixed(2);
       const transId = Math.floor(Math.random() * 90000) + 10000;
 
       // Hydrate receipt
-      document.getElementById("receiptFlavor").textContent =
-        qty + "x " + flavor;
+      document.getElementById("receiptFlavor").textContent = qty + "x " + flavor;
       document.getElementById("receiptFlavor").style.color = color;
-      document.getElementById("receiptTotal").textContent = "$" + total;
-      document.getElementById("transId").textContent =
-        "TRANS_ID: " + transId + " | STATUS: DELIVERED";
+      document.getElementById("receiptTotal").textContent  = "$" + total;
+      document.getElementById("transId").textContent       = "TRANS_ID: " + transId + " | STATUS: DELIVERED";
 
       // Apply dynamic color
       const hex = color.replace("#", "");
@@ -125,11 +117,8 @@
       const g = parseInt(hex.slice(2, 4), 16) || 45;
       const b = parseInt(hex.slice(4, 6), 16) || 45;
 
-      document.documentElement.style.setProperty("--accent", color);
-      document.documentElement.style.setProperty(
-        "--accent-glow",
-        `rgba(${r},${g},${b},0.38)`,
-      );
+      document.documentElement.style.setProperty("--accent",      color);
+      document.documentElement.style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.38)`);
 
       document.getElementById("bgGlow").style.background =
         `radial-gradient(circle at 50% 50%, rgba(${r},${g},${b},0.1) 0%, transparent 70%)`;
@@ -137,17 +126,14 @@
       document.querySelector(".receipt-container").style.boxShadow =
         `0 25px 60px rgba(0,0,0,0.5), 0 0 50px rgba(${r},${g},${b},0.2)`;
 
-      document.getElementById("orderAgainBtn").style.background = color;
-      document.getElementById("orderAgainBtn").style.boxShadow =
-        `0 4px 20px rgba(${r},${g},${b},0.45)`;
-      document.getElementById("checkIcon").style.color = color;
-      document.getElementById("checkIcon").style.textShadow =
-        `0 0 24px rgba(${r},${g},${b},0.6)`;
+      document.getElementById("orderAgainBtn").style.background  = color;
+      document.getElementById("orderAgainBtn").style.boxShadow   = `0 4px 20px rgba(${r},${g},${b},0.45)`;
+      document.getElementById("checkIcon").style.color            = color;
+      document.getElementById("checkIcon").style.textShadow      = `0 0 24px rgba(${r},${g},${b},0.6)`;
 
-      // Ensure color persists in localStorage so index page restores it
-      localStorage.setItem("slushielab_active_color", color);
-      if (flavor !== "Mystery")
-        localStorage.setItem("slushielab_active_name", flavor);
+      // sessionStorage: persists within this tab session only, clears on close
+      sessionStorage.setItem("slushielab_active_color", color);
+      if (flavor !== "Mystery") sessionStorage.setItem("slushielab_active_name", flavor);
 
       // ::selection
       const style = document.createElement("style");
