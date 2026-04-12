@@ -11,6 +11,7 @@
     />
 
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,6 +20,7 @@
     />
 
     <!-- link-css -->
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -88,7 +90,6 @@
       </div>
 
       <div class="action-group">
-        <!-- ORDER AGAIN: goes home, color already in localStorage so it'll be restored -->
         <a href="/" class="btn-primary" id="orderAgainBtn">ORDER AGAIN</a>
         <a href="/about" class="btn-secondary">ABOUT</a>
       </div>
@@ -97,7 +98,7 @@
     </div>
 
     <script>
-      // Read params from URL (set by roulette.js redirect)
+
       const params = new URLSearchParams(window.location.search);
       const flavor  = params.get("flavor") || "Mystery";
       const color   = params.get("color")  || sessionStorage.getItem("slushielab_active_color") || "#ff2d2d";
@@ -105,13 +106,11 @@
       const total   = (qty * 5).toFixed(2);
       const transId = Math.floor(Math.random() * 90000) + 10000;
 
-      // Hydrate receipt
       document.getElementById("receiptFlavor").textContent = qty + "x " + flavor;
       document.getElementById("receiptFlavor").style.color = color;
       document.getElementById("receiptTotal").textContent  = "$" + total;
       document.getElementById("transId").textContent       = "TRANS_ID: " + transId + " | STATUS: DELIVERED";
 
-      // Apply dynamic color
       const hex = color.replace("#", "");
       const r = parseInt(hex.slice(0, 2), 16) || 255;
       const g = parseInt(hex.slice(2, 4), 16) || 45;
@@ -131,11 +130,9 @@
       document.getElementById("checkIcon").style.color            = color;
       document.getElementById("checkIcon").style.textShadow      = `0 0 24px rgba(${r},${g},${b},0.6)`;
 
-      // sessionStorage: persists within this tab session only, clears on close
       sessionStorage.setItem("slushielab_active_color", color);
       if (flavor !== "Mystery") sessionStorage.setItem("slushielab_active_name", flavor);
 
-      // ::selection
       const style = document.createElement("style");
       style.textContent = `::selection{background:${color};color:#fff}::-moz-selection{background:${color};color:#fff}`;
       document.head.appendChild(style);

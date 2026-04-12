@@ -1,9 +1,7 @@
-/* ============================================================
-   SLUSHIE LAB — roulette.js  v4.0
-   ============================================================ */
 "use strict";
 
-// ── Storage Keys ─────────────────────────────────────────────
+// Storage Keys //
+
 const KEY_PASSPORT = "slushielab_passport";
 const KEY_ORDERS = "slushielab_orders";
 const KEY_CUSTOM = "slushielab_custom";
@@ -11,7 +9,8 @@ const KEY_STREAK = "slushielab_streak";
 const KEY_ACTIVE_COLOR = "slushielab_active_color";
 const KEY_ACTIVE_NAME = "slushielab_active_name";
 
-// ── Default Flavors ──────────────────────────────────────────
+// Default Flavors //
+
 const DEFAULT_FLAVORS = [
   { name: "Strawberry", color: "#FF3B6B", default: true },
   { name: "Blueberry", color: "#4F6EF7", default: true },
@@ -36,9 +35,8 @@ function getCustomFlavors() {
   }
 }
 
-// ── Active color persistence (survives page nav) ───────────────
-// sessionStorage — cleared automatically when the tab/window closes,
-// but survives same-tab navigation (ORDER AGAIN → home still works).
+// Active color persistence (survives page nav) //
+
 function getActiveColor() {
   return sessionStorage.getItem(KEY_ACTIVE_COLOR) || "#ff2d2d";
 }
@@ -50,7 +48,8 @@ function setActiveColor(color, name) {
   if (name) sessionStorage.setItem(KEY_ACTIVE_NAME, name);
 }
 
-// ── Wheel State ───────────────────────────────────────────────
+// Wheel State //
+
 let flavors = getAllFlavors();
 let numSegments = flavors.length;
 let arc = (2 * Math.PI) / numSegments;
@@ -60,14 +59,16 @@ let spinCount = 0;
 let quantity = 1;
 let currentWinner = null;
 
-// ── Canvas ───────────────────────────────────────────────────
+// Canvas //
+
 const canvas = document.getElementById("rouletteCanvas");
 const ctx = canvas.getContext("2d");
 const CX = canvas.width / 2,
   CY = canvas.height / 2,
   R = CX - 5;
 
-// ── Audio ─────────────────────────────────────────────────────
+// Audio //
+
 let audioCtx = null;
 function ensureAudio() {
   if (!audioCtx)
@@ -88,14 +89,16 @@ function playTick(freq = 600, vol = 0.07) {
   osc.stop(audioCtx.currentTime + 0.03);
 }
 
-// ── Selection color ───────────────────────────────────────────
+// Selection color //
+
 const selEl = document.createElement("style");
 document.head.appendChild(selEl);
 function updateSelectionColor(color) {
   selEl.textContent = `::selection{background:${color};color:#fff}::-moz-selection{background:${color};color:#fff}`;
 }
 
-// ── Draw wheel ────────────────────────────────────────────────
+// Draw wheel //
+
 function drawWheel() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < numSegments; i++) {
@@ -171,7 +174,8 @@ function getWinningIndex() {
   return Math.floor(rel / arc) % numSegments;
 }
 
-// ── Spin ──────────────────────────────────────────────────────
+// Spin //
+
 function spin() {
   if (isSpinning) return;
   ensureAudio();
@@ -219,6 +223,7 @@ function spin() {
     btn.disabled = false;
 
     // Persist color before anything else
+
     setActiveColor(winner.color, winner.name);
     applyThemeFull(winner.color);
     launchConfetti(winner.color);
@@ -231,7 +236,8 @@ function spin() {
   requestAnimationFrame(animate);
 }
 
-// ── Theme ─────────────────────────────────────────────────────
+// Theme //
+
 function hexToRgb(hex) {
   const c = hex.replace("#", "");
   return {
@@ -273,6 +279,7 @@ function applyThemeFull(color) {
   if (dot) dot.style.background = color;
 
   // Footer brand
+
   const bw = document.querySelector(".footer-brand .brand-word");
   if (bw) {
     bw.style.color = color;
@@ -280,6 +287,7 @@ function applyThemeFull(color) {
   }
 
   // Header brand
+
   const hb = document.querySelector("header .brand");
   if (hb) {
     hb.style.color = color;
@@ -287,6 +295,7 @@ function applyThemeFull(color) {
   }
 
   // Icon buttons color-burn
+  
   applyIconBtnColor(color, r, g, b);
 }
 
@@ -318,7 +327,8 @@ function applyIconBtnColor(color, r, g, b) {
   `;
 }
 
-// ── Confetti ──────────────────────────────────────────────────
+// Confetti //
+
 const confettiCanvas = document.getElementById("confettiCanvas");
 const cctx = confettiCanvas.getContext("2d");
 let particles = [],
@@ -404,8 +414,8 @@ function animConfetti() {
   }
 }
 
-// ── Flavor of the Day ─────────────────────────────────────────
-// Seed: full date (YYYY + dayOfYear) cycles through ALL flavors including custom
+// Flavor of the Day //
+
 function getFOTD() {
   const all = getAllFlavors(),
     now = new Date();
@@ -440,7 +450,8 @@ function initFOTD() {
   });
 }
 
-// ── Stats ─────────────────────────────────────────────────────
+// Stats //
+
 function updateStats() {
   const el = (id) => document.getElementById(id);
   if (el("statSpins")) el("statSpins").textContent = getPassport().length;
@@ -449,7 +460,8 @@ function updateStats() {
   if (el("statStreak")) el("statStreak").textContent = getStreakCount();
 }
 
-// ── Streak ────────────────────────────────────────────────────
+// Streak //
+
 function getStreakCount() {
   try {
     return parseInt(localStorage.getItem(KEY_STREAK) || "0");
@@ -461,7 +473,8 @@ function updateStreak() {
   localStorage.setItem(KEY_STREAK, getStreakCount() + 1);
 }
 
-// ── Passport ─────────────────────────────────────────────────
+// Passport //
+
 function getPassport() {
   try {
     return JSON.parse(localStorage.getItem(KEY_PASSPORT) || "[]");
@@ -516,7 +529,8 @@ function clearPassport() {
   updateStats();
 }
 
-// ── Orders ────────────────────────────────────────────────────
+// Orders //
+
 function getOrders() {
   try {
     return JSON.parse(localStorage.getItem(KEY_ORDERS) || "[]");
@@ -575,7 +589,8 @@ function clearOrders() {
   updateStats();
 }
 
-// ── Badges ────────────────────────────────────────────────────
+// Badges //
+
 function updateHistoryBadge() {
   const b = document.getElementById("historyBadge");
   if (!b) return;
@@ -591,7 +606,8 @@ function updateOrdersBadge() {
   b.classList.toggle("hidden", n === 0);
 }
 
-// ── Drawer ────────────────────────────────────────────────────
+// Drawer //
+
 function openDrawer() {
   document.getElementById("historyDrawer").classList.add("open");
   document.getElementById("drawerOverlay").classList.add("active");
@@ -613,7 +629,8 @@ function switchTab(tab) {
     .forEach((c) => c.classList.toggle("active", c.id === `tab-${tab}`));
 }
 
-// ── Quantum Mixer ─────────────────────────────────────────────
+// Quantum Mixer //
+
 function populateMixerSelects() {
   const all = getAllFlavors();
   const opts = all
@@ -708,6 +725,7 @@ function runQuantumMix() {
     sb.textContent = "Save to Lab ✦";
 
     // Order section
+
     const os = document.getElementById("mixOrderSection");
     if (os) {
       os.classList.remove("hidden");
@@ -725,6 +743,7 @@ function runQuantumMix() {
     document.getElementById("mixBtn").disabled = false;
 
     // Persist blended color
+    
     setActiveColor(bc, bn);
     applyThemeFull(bc);
   }, 1600);
@@ -791,7 +810,8 @@ function closeQuantum() {
   document.getElementById("quantumModal").setAttribute("aria-hidden", "true");
 }
 
-// ── Popup ─────────────────────────────────────────────────────
+// Popup //
+
 function showPopup(flavor) {
   quantity = 1;
   document.getElementById("orderForm").innerHTML = `
@@ -848,7 +868,7 @@ function placeOrder() {
       <p class="confirmed-msg">Order confirmed</p>
       <p class="confirmed-detail" style="color:${accent}">${quantity} × ${currentWinner.name} Slushie</p>
     </div>`;
-  // color already persisted — survives redirect
+
   setTimeout(() => {
     window.location.href = `/order?flavor=${encodeURIComponent(currentWinner.name)}&color=${encodeURIComponent(currentWinner.color)}&qty=${quantity}`;
   }, 1200);
@@ -871,7 +891,7 @@ function formatTs(iso) {
   return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-// ── Custom Cursor ─────────────────────────────────────────────
+// ── Custom Cursor //
 (function initCursor() {
   const dot = document.getElementById("cursorDot"),
     ring = document.getElementById("cursorRing");
@@ -899,7 +919,8 @@ function formatTs(iso) {
   });
 })();
 
-// ── Keyboard ─────────────────────────────────────────────────
+// Keyboard //
+
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space" && e.target === document.body) {
     e.preventDefault();
@@ -914,7 +935,8 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "KeyQ" && e.target === document.body) openQuantum();
 });
 
-// ── Wire up ───────────────────────────────────────────────────
+// Wire up //
+
 document.getElementById("historyToggle").addEventListener("click", openDrawer);
 document.getElementById("quantumToggle").addEventListener("click", openQuantum);
 const mxA = document.getElementById("mixerA"),
@@ -923,11 +945,14 @@ if (mxA) mxA.addEventListener("change", syncDots);
 if (mxB) mxB.addEventListener("change", syncDots);
 document.getElementById("spinBtn").addEventListener("click", spin);
 
-// ── INIT — restore persistent color on every page load ───────
+//  Restore persistent color on every page load //
+
 (function () {
   const savedColor = getActiveColor();
   applyThemeFull(savedColor);
+
   // Restore current winner if name known
+
   const savedName = getActiveName();
   if (savedName) {
     const match = getAllFlavors().find((f) => f.name === savedName);

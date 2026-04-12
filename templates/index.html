@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- link-css -->
+     
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     
     <ttle>Slushie Lab</title>
@@ -15,6 +16,7 @@
     />
 
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,7 +24,8 @@
       rel="stylesheet"
     />
 
-    <!-- brand-font style + tracked-out glow -->
+    <!------------ brand-font style ------------>
+
     <style>
       .brand {
         font-family: var(--font-d);
@@ -37,20 +40,25 @@
     </style>
   </head>
   <body>
-    <!-- Grain + scanlines -->
-    <div class="scanline"></div>
 
-    <!-- Custom cursor -->
+
+    <div class="scanline"></div>
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- Confetti -->
+
+    <!------------ Confetti ------------>
+
     <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
-    <!-- Ambient BG -->
+
+    <!------------ Ambient BG ------------>
+
     <div id="bgGlow" class="bg-glow"></div>
 
-    <!-- ══ HEADER ══ -->
+
+    <!------------ HEADER ------------->
+
     <header>
       <div class="header-left">
         <a href="/about" class="nav-link">About</a>
@@ -112,21 +120,25 @@
       </div>
     </header>
 
-    <!-- ══ MAIN ══ -->
+
+    <!------------MAIN ------------>
+
     <main>
       <div class="hero-text">
         <h1 class="lab-title">Slushie Lab</h1>
         <p class="lab-sub">spin the wheel &mdash; claim your flavor</p>
       </div>
 
-      <!-- Flavor of the Day -->
+      <!   Flavor of the Day -->
       <div class="fotd-banner" id="fotdBanner" title="Flavor of the Day">
         <div class="fotd-dot" id="fotdDot"></div>
         <span class="fotd-label">Today's Pick</span>
         <span class="fotd-name" id="fotdName">—</span>
       </div>
 
-      <!-- Live stats -->
+
+      <!------------ Live stats ------------>
+
       <div class="stat-strip">
         <div class="stat-item">
           <span class="stat-val" id="statSpins">0</span>
@@ -146,7 +158,9 @@
         </div>
       </div>
 
-      <!-- Wheel -->
+
+      <!------------ Wheel ------------>
+
       <div class="wheel-wrapper">
         <div class="pointer-wrap">
           <div class="pointer" id="pointer"></div>
@@ -164,7 +178,9 @@
       <div class="kbd-hint" id="kbdHint">press <kbd>Space</kbd> to spin</div>
     </main>
 
-    <!-- ══ HISTORY DRAWER ══ -->
+
+    <!------------ HISTORY DRAWER ------------>
+
     <div
       id="drawerOverlay"
       class="drawer-overlay"
@@ -226,7 +242,8 @@
       </div>
     </aside>
 
-    <!-- ══ QUANTUM MIXER MODAL ══ -->
+    <!------------ QUANTUM MIXER MODAL ------------>
+
     <div id="quantumOverlay" class="overlay" onclick="closeQuantum()"></div>
     <div id="quantumModal" class="modal" aria-hidden="true">
       <button
@@ -286,7 +303,8 @@
           </button>
         </div>
 
-        <!-- Order blended flavor — shown after mix result -->
+        <!------------ Order blended flavor ------------->
+
         <div id="mixOrderSection" class="mix-order-section hidden">
           <div class="divider" style="margin: 1rem 0 0.85rem"></div>
           <p class="mix-order-label">Order this blend</p>
@@ -305,7 +323,8 @@
       </div>
     </div>
 
-    <!-- ══ ORDER POPUP ══ -->
+    <!------------ ORDER POPUP ------------>
+
     <div id="overlay" class="overlay" onclick="closePopup()"></div>
     <div id="popup" class="popup" aria-hidden="true">
       <button class="close-btn" onclick="closePopup()" aria-label="Close popup">
@@ -346,7 +365,8 @@
       </div>
     </div>
 
-    <!-- ══ FOOTER ══ -->
+    <!------------ FOOTER ------------>
+
     <footer>
       <div class="footer-inner">
         <div class="footer-brand">

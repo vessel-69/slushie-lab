@@ -11,6 +11,7 @@
     />
 
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,6 +20,7 @@
     />
 
     <!-- link-css -->
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -109,6 +111,8 @@
       </div>
     </main>
 
+    <!------------ footer ------------>
+
     <footer>
       <div class="footer-inner">
         <div class="footer-brand">
@@ -144,49 +148,39 @@
     </footer>
 
     <script>
-      // ── Restore persistent flavor color on about page ─────────
+  
       (function () {
         const KEY_ACTIVE_COLOR = "slushielab_active_color";
-        // sessionStorage: clears on tab close, survives same-tab navigation
         const saved = sessionStorage.getItem(KEY_ACTIVE_COLOR) || "#ff2d2d";
         const hex = saved.replace("#", "");
         const r = parseInt(hex.slice(0, 2), 16) || 255;
         const g = parseInt(hex.slice(2, 4), 16) || 45;
         const b = parseInt(hex.slice(4, 6), 16) || 45;
-
         const root = document.documentElement;
         root.style.setProperty("--accent", saved);
         root.style.setProperty("--accent-glow", `rgba(${r},${g},${b},0.38)`);
-
-        // BG glow
         const bgGlow = document.getElementById("bgGlow");
         if (bgGlow)
           bgGlow.style.background = `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
 
-        // Brand color
         document.querySelectorAll(".brand, .brand-word").forEach((el) => {
           el.style.color = saved;
           el.style.textShadow = `0 0 24px rgba(${r},${g},${b},0.55)`;
         });
 
-        // Status dot
         const sd = document.querySelector(".status-dot");
         if (sd) {
           sd.style.background = saved;
           sd.style.boxShadow = `0 0 10px ${saved}`;
         }
 
-        // nav-lab
         document
           .querySelectorAll(".nav-lab")
           .forEach((el) => (el.style.color = saved));
 
-        // ::selection
         const s = document.createElement("style");
         s.textContent = `::selection{background:${saved};color:#fff}::-moz-selection{background:${saved};color:#fff}`;
         document.head.appendChild(s);
-
-        // Footer brand-word
         const bw = document.querySelector(".footer-brand .brand-word");
         if (bw) {
           bw.style.color = saved;

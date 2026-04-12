@@ -11,12 +11,16 @@
     />
 
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- link-css -->
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -38,7 +42,9 @@
     </header>
 
     <main>
-      <!-- Page header -->
+
+      <!------------ Page header ------------>
+
       <div style="animation: fadeUp 0.7s var(--ease) both">
         <p class="page-eyebrow">✦ Custom Flavor Lab</p>
         <h1 class="page-title">Build Your Wheel</h1>
@@ -48,12 +54,12 @@
         </p>
       </div>
 
-      <!-- Grid: form + list -->
+      <!------------ Grid: form + list ------------>
       <div
         class="lab-grid"
         style="animation: fadeUp 0.7s 0.1s var(--ease) both"
       >
-        <!-- Add Flavor Form -->
+        <!------------ Add Flavor Form ------------>
         <div class="add-flavor-form">
           <p class="form-title">New Flavor</p>
 
@@ -112,7 +118,7 @@
           ></div>
         </div>
 
-        <!-- Flavor List -->
+        <!------------ Flavor List ------------>
         <div class="flavor-list-wrap">
           <div class="flavor-list-header">
             <p class="flavor-list-title">Active Flavors</p>
@@ -127,7 +133,7 @@
         </div>
       </div>
 
-      <!-- Live preview -->
+      <!   Live preview -->
       <div
         style="
           display: flex;
@@ -173,7 +179,8 @@
       </div>
     </main>
 
-    <!-- Footer -->
+    <!------------ Footer ------------>
+
     <footer>
       <div class="footer-inner">
         <div class="footer-brand">
@@ -201,7 +208,7 @@
       </div>
       <div class="footer-bottom">
         <span class="footer-copy"
-          >© 2025 Vessel — Built for Hack Club Slushies</span
+          >© 2026 Vessel-69</span
         >
         <div class="footer-status">
           <div class="status-dot-live"></div>
@@ -211,6 +218,7 @@
     </footer>
 
     <script>
+
       "use strict";
 
       const KEY_CUSTOM = "slushielab_custom";
@@ -242,14 +250,12 @@
         return [...DEFAULT_FLAVORS, ...getCustom()];
       }
 
-      // ── Selection color ───────────────────────────────────────
       const selStyle = document.createElement("style");
       document.head.appendChild(selStyle);
       function updateSelectionColor(color) {
         selStyle.textContent = `::selection{background:${color};color:#fff}::-moz-selection{background:${color};color:#fff}`;
       }
 
-      // ── Preview Canvas ────────────────────────────────────────
       const pCanvas = document.getElementById("previewCanvas");
       const pCtx = pCanvas.getContext("2d");
       const PCX = pCanvas.width / 2;
@@ -296,7 +302,6 @@
         pCtx.stroke();
       }
 
-      // ── Render flavor list ────────────────────────────────────
       function renderList() {
         const all = getAllFlavors();
         const list = document.getElementById("flavorList");
@@ -321,7 +326,6 @@
         drawPreview();
       }
 
-      // ── Add Flavor ────────────────────────────────────────────
       function addFlavor() {
         const nameInput = document.getElementById("flavorName");
         const colorInput = document.getElementById("flavorColor");
@@ -354,14 +358,12 @@
         renderList();
       }
 
-      // ── Delete ────────────────────────────────────────────────
       function deleteFlavor(name) {
         setCustom(getCustom().filter((f) => f.name !== name));
         renderList();
         showMsg(`"${name}" removed.`, "var(--muted)");
       }
 
-      // ── Reset ─────────────────────────────────────────────────
       function resetToDefaults() {
         if (!confirm("Remove all custom flavors and reset to defaults?"))
           return;
@@ -370,7 +372,6 @@
         showMsg("Reset to defaults.", "var(--muted)");
       }
 
-      // ── Helpers ───────────────────────────────────────────────
       function showMsg(text, color = "var(--muted)") {
         const el = document.getElementById("addMsg");
         el.textContent = text;
@@ -393,9 +394,7 @@
         );
         document.getElementById("bgGlow").style.background =
           `radial-gradient(ellipse 70% 45% at 50% 0%, rgba(${r},${g},${b},0.07) 0%, transparent 70%)`;
-        // Persist in sessionStorage (clears on tab close, survives same-tab nav)
         sessionStorage.setItem("slushielab_active_color", color);
-        // Brand + nav-lab sync
         document.querySelectorAll(".brand, .brand-word").forEach((el) => {
           el.style.color = color;
           el.style.textShadow = `0 0 24px rgba(${r},${g},${b},0.55)`;
@@ -405,7 +404,6 @@
           .forEach((el) => (el.style.color = color));
       }
 
-      // ── Color picker sync ─────────────────────────────────────
       const colorPicker = document.getElementById("flavorColor");
       const colorHexInput = document.getElementById("flavorColorHex");
       const colorPreview = document.getElementById("colorPreview");
@@ -430,8 +428,6 @@
         if (e.key === "Enter") addFlavor();
       });
 
-      // ── Init ──────────────────────────────────────────────────
-      // Restore active flavor color from sessionStorage (clears on tab close)
       (function restoreColor() {
         const saved =
           sessionStorage.getItem("slushielab_active_color") || "#ff2d2d";
