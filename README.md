@@ -1,5 +1,4 @@
 ## 🥤 Slushie Lab
-## 🥤 Slushie Lab
 > A high-performance, neon-infused flavor roulette for the modern slushie connoisseur.
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://slushie-lab.vercel.app/)
