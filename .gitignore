@@ -1,5 +1,6 @@
 
 # --- Py venv universal ---
+
 .venv/
 venv/
 __pycache__/
