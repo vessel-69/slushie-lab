@@ -1,4 +1,4 @@
-## 🥤 Slushie Lab || vessel-69
+## 🥤 Slushie Lab
 > A high-performance, neon-infused flavor roulette for the modern slushie connoisseur.
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://slushie-lab.vercel.app/)
@@ -15,21 +15,6 @@ Welcome to the lab. Here’s what’s under the hood of **VESSEL-69**:
 * **📊 Progress Tracking:** Integrated progress bars that fill as the "machine" prepares your order.
 * **🎨 Custom Theming:** Dark-mode optimized with neon accents (Cyan & Lime).
 * **📋 Instant Result Copy:** One-click clipboard functionality to share your "Mystery Flavor" result.
-
----
-
-## 📁 Project Structure
-
-```text
-slushie-lab/
-├── app.py              # The Flask Brain
-├── favicon/            # Web Favicon
-├── static/             # The UI Hardware (CSS/JS)
-│   ├── style.css       # Neon aesthetics
-│   └── roulette.js     # Spin logic
-└── templates/          # The Visual Interface (HTML)
-    └── index.html      # Main Lab Floor
-```
 
 ---
 
@@ -71,11 +56,4 @@ python3 app.py
 
 ---
 
-
-## 🛰️ Deployment
-This project is continuously deployed via **Vercel**. 
-Any push to the `main` branch automatically triggers a new build and update to the live site.
-
----
-
-**Developed by Vessel-69** 
+**© 2026 Vessel-69**
